@@ -24,7 +24,7 @@ export class HeartbeatComponent implements OnInit {
     resizeDelay: 1000,
     animations: {
       tension: {
-        duration: 5000,
+        duration: 1000,
         easing: 'ease-out',
         from: 1,
         to: 0
