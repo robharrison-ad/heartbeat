@@ -1,0 +1,13 @@
+<div class="heartbeat-container">
+    <app-heartbeat [alive]="alive" [flowRate]="100"></app-heartbeat>
+</div>
+
+<!-- <div class="heartbeat-container">
+    <app-heartbeat></app-heartbeat>
+</div>
+ -->
+<div>
+    <button class="kill-revive-button" (click)="killRevive()">
+        {{ (alive ? 'KILL' : 'REVIVE' ) }}
+    </button>
+</div>

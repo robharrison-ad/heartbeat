@@ -5,11 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeartbeatComponent } from './heartbeat/heartbeat.component';
 import { ChartsModule } from 'ng2-charts';
+import { TestChartComponent } from './test-chart/test-chart.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeartbeatComponent
+    HeartbeatComponent,
+    TestChartComponent
   ],
   imports: [
     BrowserModule,

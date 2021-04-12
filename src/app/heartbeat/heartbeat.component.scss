@@ -1,15 +1,11 @@
-.page {
-    position: fixed;
-    left: 0;
-    top: 0;
-    min-height: 100vh;
-    min-width: 100vw;
-    background-color: #000000;
+.data {
+    color: #ffffff;
+    font-size: 48px;
 }
 
 .heartbeat-chart-wrapper {
-    width: 340px;
-    max-height: 220px;
+    width: 320px;
+    max-height: 240px;
     .heartbeat-chart {
         background-color: #000000;
     }

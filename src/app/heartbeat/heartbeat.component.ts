@@ -1,32 +1,33 @@
 import { BaseChartDirective } from 'ng2-charts';
 import { Chart } from 'chart.js';
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy, Input } from '@angular/core';
 
 @Component({
   selector: 'app-heartbeat',
   templateUrl: './heartbeat.component.html',
   styleUrls: ['./heartbeat.component.scss']
 })
-export class HeartbeatComponent implements OnInit {
+export class HeartbeatComponent implements OnInit, OnDestroy {
 
+  @Input('alive') alive: boolean = true;
+  @Input('flowRate') pointDelay = 50;
+  @Input('pulseRate') ecgDelay = 0;
   ecgPoints = [5, 6, 5, 6, 3, 30, -10, 0, 2, 3, 14, 6, 5, 5, 5, 5, 5];
   ecg = {
     data: this.ecgPoints,
     label: 'Are you alive or are you dead?'
   }
   baseecg = [5, 6, 5, 6, 3, 30, -10, 0, 2, 3, 14, 6, 5, 5, 5, 5, 5];
-  ecgLabels = '.'.repeat(this.baseecg.length * 3).split('');
-  pointDelay = 100;
-  ecgDelay = 0;
+  ecgLabels = ' '.repeat(this.baseecg.length * 3 + 1).split('');
 
   ecgOptions: any = {
     responsive: true,
-    resizeDelay: 1000,
+    resizeDelay: 0,
     animations: {
       tension: {
         duration: 1000,
         easing: 'ease-out',
-        from: 1,
+        from: 10,
         to: 0
       }
     },
@@ -40,7 +41,13 @@ export class HeartbeatComponent implements OnInit {
     },
     annotation: {
       annotations: [{
-
+        type: 'box',
+        yScaleID: 'y-axis-0',
+        yMin: 15,
+        yMax: 25,
+        borderColor: 'rgba(255, 0, 0, 1)',
+        borderWidth: 2,
+        backgroundColor: 'yellow'
       }]
     }
   }
@@ -48,7 +55,7 @@ export class HeartbeatComponent implements OnInit {
   ecgColors = [
     {
       backgroundColor: 'transparent',
-      borderColor: 'rgba(255,0,0,1)',
+      borderColor: this.alive ? 'rgba(255,0,0,1)' : 'rgba(255, 255, 255, 1)',
       pointBackgroundColor: 'transparent',
       pointBorderColor: 'transparent',
       pointHoverBackgroundColor: 'white',
@@ -57,52 +64,55 @@ export class HeartbeatComponent implements OnInit {
   ]
 
   ecgCount = 0;
+  ecgTimers = [];
+
 
   @ViewChild(BaseChartDirective) chart: BaseChartDirective;
 
   constructor() { }
 
   ngOnInit(): void {
-    setTimeout(() => { this.addecg(this) }, 1000);
+    this.ecgTimers.push(setTimeout(() => { this.addecg(this) }, 1000));
+  }
+
+  ngOnDestroy(): void {
+    this.ecgTimers.forEach(val => {
+      clearTimeout(val);
+    });
   }
 
   addecg(component: HeartbeatComponent) {
     component.baseecg.forEach((val, idx) => {
-      setTimeout(() => {
-        component.addPoint(component, (component.ecgCount > 20 ? 0 : val));
+      const t = setTimeout(() => {
+        component.addPoint(component, (component.alive ? val : 0));
       }, (idx * component.pointDelay));
-
+      this.ecgTimers.push(t);
     });
 
-    setTimeout(() => {
-      if (component.ecgCount < 25) {
-        component.addecg(component);
-        component.ecgCount++;
-      }
-      else {
-        component.ecgPoints = [];
-        component.ecgLabels = '.'.repeat(this.baseecg.length * 3).split('');
-        ;
-        component.ecgCount = 1;
-        component.addecg(component);
-
-      }
+    const t2 = setTimeout(() => {
+      component.addecg(component);
+      component.ecgCount++;
     }, (component.baseecg.length * component.pointDelay + component.ecgDelay))
-
+    this.ecgTimers.push(t2);
 
   }
 
   addPoint(component, val) {
-    component.ecgPoints.push(val);
-    // component.ecgLabels.push('.');
+    component.ecgPoints.push(this.alive ? val : 0);
+    this.setColor();
     if (component.ecgPoints.length > (3 * component.baseecg.length)) {
-      setTimeout(() => {
-        component.ecgPoints.splice(0, 1);
-        // component.ecgLabels.splice(0, 1);
+      const t = setTimeout(() => {
+        component.ecgPoints.splice(0, component.ecgPoints.length - component.ecgLabels.length);
       }, component.pointDelay);
+      this.ecgTimers.push(t);
     }
-
   }
+
+  setColor() {
+    this.ecgColors['borderColor'] = this.alive ? 'rgba(255,0,0,1)' : 'rgba(255, 255, 255, 1)';
+    console.log(this.alive, this.ecgColors);
+  }
+
 
   animationProgress(animation) {
     console.log(`animation step #${animation.currentStep} of ${animation.numSteps}`);
