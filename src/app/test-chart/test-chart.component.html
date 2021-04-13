@@ -1,5 +1,5 @@
 <div class="heartbeat-container">
-    <app-heartbeat [alive]="alive" [flowRate]="100"></app-heartbeat>
+    <app-heartbeat [alive]="alive" [flowRate]="75"></app-heartbeat>
 </div>
 
 <!-- <div class="heartbeat-container">
@@ -10,4 +10,13 @@
     <button class="kill-revive-button" (click)="killRevive()">
         {{ (alive ? 'KILL' : 'REVIVE' ) }}
     </button>
+</div>
+
+<div>
+    <ngx-gauge [type]="gaugeType" [thick]="20" [value]="gaugeValue" [label]="gaugeLabel" [min]="0" [max]="100" [append]="gaugeAppendText" [foregroundColor]="gaugeFgColor" [backgroundColor]="gaugeBgColor">
+    </ngx-gauge>
+    <div> {{ n }} </div>
+    <div> {{ gaugeValue }} </div>
+    <div> {{ (this.n > 0 && this.gaugeValue + this.n > this.gaugeMax) }} </div>
+    <div> {{ (this.n < 0 && this.gaugeValue + this.n < this.gaugeMin) }} </div>
 </div>

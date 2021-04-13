@@ -1,6 +1,6 @@
 <div class="page">
     <div class="heartbeat-chart-wrapper">
-        <canvas class="heartbeat-chart" [ngClass]="{'dead': !alive}" #sampleChart baseChart [chartType]="'line'" [data]="ecgPoints" [labels]="ecgLabels" [options]="ecgOptions" [colors]="ecgColors">
+        <canvas #sampleChart baseChart class="heartbeat-chart" [legend]="false" [ngClass]="{'dead': !alive}" [chartType]="'line'" [data]="ecgPoints" [labels]="ecgLabels" [options]="ecgOptions" [colors]="ecgColors">
         </canvas>
     </div>
 </div>

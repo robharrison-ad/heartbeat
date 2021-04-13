@@ -72,7 +72,7 @@ export class HeartbeatComponent implements OnInit, OnDestroy {
   constructor() { }
 
   ngOnInit(): void {
-    this.ecgTimers.push(setTimeout(() => { this.addecg(this) }, 1000));
+    // this.ecgTimers.push(setTimeout(() => { this.addecg(this) }, 1000));
   }
 
   ngOnDestroy(): void {
@@ -110,7 +110,7 @@ export class HeartbeatComponent implements OnInit, OnDestroy {
 
   setColor() {
     this.ecgColors['borderColor'] = this.alive ? 'rgba(255,0,0,1)' : 'rgba(255, 255, 255, 1)';
-    console.log(this.alive, this.ecgColors);
+    // console.log(this.alive, this.ecgColors);
   }
 
 

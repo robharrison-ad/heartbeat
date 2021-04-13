@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { HeartbeatComponent } from './heartbeat/heartbeat.component';
 import { ChartsModule } from 'ng2-charts';
 import { TestChartComponent } from './test-chart/test-chart.component';
+import { NgxGaugeModule } from 'ngx-gauge';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { TestChartComponent } from './test-chart/test-chart.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ChartsModule
+    ChartsModule,
+    NgxGaugeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

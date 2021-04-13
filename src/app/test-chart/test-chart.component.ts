@@ -10,10 +10,30 @@ export class TestChartComponent implements OnInit {
   alive = true;
   constructor() { }
 
+  gaugeType = 'full';
+  gaugeAppendText = "MPH";
+  gaugeLabel = "Speed";
+  gaugeValue = 0;
+  gaugeBgColor = '#15997F';
+  gaugeFgColor = '#FECC65';
+  gaugeMax = 120;
+  gaugeMin = -20;
+  n = this.gaugeMax / 50;
+
   ngOnInit(): void {
     // setInterval(() => { this.generateDeadOrAlive(); }, 2000);
-
+    this.n = (this.gaugeMax * Math.random()) / 100;
+    const i = setInterval(() => {
+      if ((this.n > 0 && this.gaugeValue + this.n > this.gaugeMax) || (this.n < 0 && this.gaugeValue + this.n < this.gaugeMin)) {
+        this.n = ((this.gaugeMax * Math.random()) / 50) * (this.n < 0 ? -1 : 1);
+        this.n = this.n * -1;
+      }
+      else {
+        this.gaugeValue += this.n;
+      }
+    }, 100);
   }
+
 
   killRevive() {
     this.alive = !this.alive;
