@@ -1,12 +1,18 @@
 .data {
     color: #ffffff;
-    font-size: 48px;
+    font-size: 18px;
 }
 
 .heartbeat-chart-wrapper {
     width: 320px;
     max-height: 240px;
+
     .heartbeat-chart {
         background-color: #000000;
     }
+}
+
+.debug-wrapper {
+    position: relative;
+    display: inline-block;
 }

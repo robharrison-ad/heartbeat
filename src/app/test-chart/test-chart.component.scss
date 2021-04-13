@@ -1,6 +1,52 @@
-.heartbeat-container {
+.page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #000000;
+    min-height: 100vh;
+    min-width: 100vw;
+}
+
+.chart-wrapper {
+    width: 320;
+    height: 220;
     float: left;
-    padding: 40px;
-    border-right: 2px solid #ffffff;
-    border-bottom: 2ps solid #ffffff;
+    margin-left: 20px;
+    border-right: 5px solid #FFFFFF;
+
+    &:last-of-type {
+        border-right: none;
+    }
+
+    .reading-block {
+        color: #FFFFFF !important;
+    }
+}
+
+.sample-chart {
+    background-color: #000000;
+}
+
+.buttons-container {
+    width: 100%;
+    display: block;
+}
+
+.data {
+    position: relative;
+    color: white;
+
+    input {
+        color: black;
+    }
+}
+
+.controls-container {
+    display: block;
+    position: relative;
+}
+
+
+.reading-block {
+    color: white;
 }

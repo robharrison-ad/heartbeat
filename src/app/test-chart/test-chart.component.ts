@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./test-chart.component.scss']
 })
 export class TestChartComponent implements OnInit {
+  flowRate = 100;
+  pulseRate = 500;
 
   alive = true;
   constructor() { }
@@ -14,10 +16,12 @@ export class TestChartComponent implements OnInit {
   gaugeAppendText = "MPH";
   gaugeLabel = "Speed";
   gaugeValue = 0;
-  gaugeBgColor = '#15997F';
-  gaugeFgColor = '#FECC65';
+  gaugeBgColor = '#07037B';
+  gaugeFgColor = '#FD0606';
   gaugeMax = 120;
   gaugeMin = -20;
+  gaugeCap = 'butt';
+  gaugeThick = 30;
   n = this.gaugeMax / 50;
 
   ngOnInit(): void {

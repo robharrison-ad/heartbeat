@@ -65,6 +65,9 @@ export class HeartbeatComponent implements OnInit, OnDestroy {
 
   ecgCount = 0;
   ecgTimers = [];
+  pointTimers = [];
+  removePointTimers = [];
+  ecgTimersCount: number;
 
 
   @ViewChild(BaseChartDirective) chart: BaseChartDirective;
@@ -72,24 +75,36 @@ export class HeartbeatComponent implements OnInit, OnDestroy {
   constructor() { }
 
   ngOnInit(): void {
-    // this.ecgTimers.push(setTimeout(() => { this.addecg(this) }, 1000));
+    this.ecgTimers.push(setTimeout(() => { this.addecg(this) }, 1000));
   }
 
   ngOnDestroy(): void {
     this.ecgTimers.forEach(val => {
       clearTimeout(val);
     });
+    this.pointTimers.forEach(val => {
+      clearTimeout(val);
+    });
+    this.removePointTimers.forEach(val => {
+      clearTimeout(val);
+    });
   }
 
   addecg(component: HeartbeatComponent) {
+    clearTimeout(this.ecgTimers[0]);
+    this.ecgTimers.splice(0, 1);
     component.baseecg.forEach((val, idx) => {
       const t = setTimeout(() => {
         component.addPoint(component, (component.alive ? val : 0));
+        clearTimeout(this.pointTimers[0]);
+        this.pointTimers.splice(0, 1);
       }, (idx * component.pointDelay));
-      this.ecgTimers.push(t);
+      this.pointTimers.push(t);
     });
 
     const t2 = setTimeout(() => {
+      clearTimeout(this.ecgTimers[0]);
+      this.ecgTimers.splice(0, 1);
       component.addecg(component);
       component.ecgCount++;
     }, (component.baseecg.length * component.pointDelay + component.ecgDelay))
@@ -102,15 +117,16 @@ export class HeartbeatComponent implements OnInit, OnDestroy {
     this.setColor();
     if (component.ecgPoints.length > (3 * component.baseecg.length)) {
       const t = setTimeout(() => {
+        clearTimeout(this.removePointTimers[0]);
+        this.removePointTimers.splice(0, 1);
         component.ecgPoints.splice(0, component.ecgPoints.length - component.ecgLabels.length);
       }, component.pointDelay);
-      this.ecgTimers.push(t);
+      this.removePointTimers.push(t);
     }
   }
 
   setColor() {
     this.ecgColors['borderColor'] = this.alive ? 'rgba(255,0,0,1)' : 'rgba(255, 255, 255, 1)';
-    // console.log(this.alive, this.ecgColors);
   }
 
 

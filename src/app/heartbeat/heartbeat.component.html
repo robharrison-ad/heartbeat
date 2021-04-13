@@ -1,6 +1,14 @@
 <div class="page">
     <div class="heartbeat-chart-wrapper">
-        <canvas #sampleChart baseChart class="heartbeat-chart" [legend]="false" [ngClass]="{'dead': !alive}" [chartType]="'line'" [data]="ecgPoints" [labels]="ecgLabels" [options]="ecgOptions" [colors]="ecgColors">
+        <canvas class="heartbeat-chart" [legend]="false" [ngClass]="{'dead': !alive}" #sampleChart baseChart [chartType]="'line'" [data]="ecgPoints" [labels]="ecgLabels" [options]="ecgOptions" [colors]="ecgColors">
         </canvas>
+    </div>
+    <div class="debug-wrapper">
+        <div class="data">{{ecgTimers.length}} </div>
+        <div class="data">{{pointTimers.length}} </div>
+        <div class="data">{{removePointTimers.length}} </div>
+        <div class="data">{{ecgLabels.length}} </div>
+        <div class="data">Flow: {{pointDelay}} </div>
+        <div class="data">Pulse: {{ecgDelay}} </div>
     </div>
 </div>

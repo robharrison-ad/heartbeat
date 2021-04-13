@@ -1,22 +1,23 @@
-<div class="heartbeat-container">
-    <app-heartbeat [alive]="alive" [flowRate]="75"></app-heartbeat>
+<div class="chart-wrapper">
+    <app-heartbeat [alive]="alive" [flowRate]="flowRate" [pulseRate]="pulseRate">
+    </app-heartbeat>
+    <div class="controls-container">
+        <button (click)="alive = !alive">{{ (alive ? 'KILL' : 'REVIIVE') }}</button>
+        <!-- <div class="data">Flow: <input type="number" step="25" [(ngModel)]="flowRate" /></div>
+        <div class="data">Pulse: <input type="number" step="25" [(ngModel)]="pulseRate" /></div> -->
+    </div>
 </div>
-
-<!-- <div class="heartbeat-container">
-    <app-heartbeat></app-heartbeat>
-</div>
- -->
-<div>
-    <button class="kill-revive-button" (click)="killRevive()">
-        {{ (alive ? 'KILL' : 'REVIVE' ) }}
-    </button>
-</div>
-
-<div>
-    <ngx-gauge [type]="gaugeType" [thick]="20" [value]="gaugeValue" [label]="gaugeLabel" [min]="0" [max]="100" [append]="gaugeAppendText" [foregroundColor]="gaugeFgColor" [backgroundColor]="gaugeBgColor">
+<div class="chart-wrapper">
+    <ngx-gauge [type]="gaugeType" [thick]="gaugeThick" [value]="gaugeValue" [label]="gaugeLabel" [min]="0" [max]="100" [cap]="gaugeCap" [append]="gaugeAppendText" [foregroundColor]="gaugeFgColor" [backgroundColor]="gaugeBgColor">
     </ngx-gauge>
-    <div> {{ n }} </div>
-    <div> {{ gaugeValue }} </div>
-    <div> {{ (this.n > 0 && this.gaugeValue + this.n > this.gaugeMax) }} </div>
-    <div> {{ (this.n < 0 && this.gaugeValue + this.n < this.gaugeMin) }} </div>
+    <!-- <div> Type: <input type="text" [(ngModel)]="gaugeType" /> </div>
+    <div> Thick: <input type="number" [(ngModel)]="gaugeThick" /> </div>
+    <div> Value: <input type="number" [(ngModel)]="gaugeValue" /> </div>
+    <div> Label: <input type="text" [(ngModel)]="gaugeLabel" /> </div>
+    <div> Min: <input type="number" [(ngModel)]="gaugeMin" /> </div>
+    <div> Max: <input type="number" [(ngModel)]="gaugeMax" /> </div>
+    <div> Cap: <input type="text" [(ngModel)]="gaugeCap" /> </div>
+    <div> Append: <input type="text" [(ngModel)]="gaugeAppend" /> </div>
+    <div> FG Color: <input type="text" [(ngModel)]="gaugeFgColor" /> </div>
+    <div> BG Color: <input type="text" [(ngModel)]="gaugeBgColor" /> </div> -->
 </div>
